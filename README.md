@@ -4,7 +4,7 @@
 [![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.extensions.spans.readonly.strings/codeql.yml?label=CodeQL&style=for-the-badge)](https://github.com/soenneker/soenneker.extensions.spans.readonly.strings/actions/workflows/codeql.yml)
 
 # ![](https://user-images.githubusercontent.com/4441470/224455560-91ed3ee7-f510-4041-a8d2-3fc093025112.png) Soenneker.Extensions.Spans.ReadOnly.Strings
-Searches and joins spans of strings without first materializing another collection.
+Extension methods for searching, joining, and otherwise processing read-only spans of strings without first materializing another collection.
 
 ## Installation
 
