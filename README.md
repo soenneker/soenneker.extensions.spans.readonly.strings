@@ -4,7 +4,7 @@
 [![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.extensions.spans.readonly.strings/codeql.yml?label=CodeQL&style=for-the-badge)](https://github.com/soenneker/soenneker.extensions.spans.readonly.strings/actions/workflows/codeql.yml)
 
 # ![](https://user-images.githubusercontent.com/4441470/224455560-91ed3ee7-f510-4041-a8d2-3fc093025112.png) Soenneker.Extensions.Spans.ReadOnly.Strings
-A collection of helpful ReadOnlySpan (string) extension methods.
+Searches and joins spans of strings without first materializing another collection.
 
 ## Installation
 
@@ -12,15 +12,19 @@ A collection of helpful ReadOnlySpan (string) extension methods.
 dotnet add package Soenneker.Extensions.Spans.ReadOnly.Strings
 ```
 
-## Quick start
+## Usage
 
 ```csharp
 using Soenneker.Extensions.Spans.ReadOnly.Strings;
+
+ReadOnlySpan<string> values = ["alpha", "Beta", "gamma"];
+bool found = ReadOnlySpanStringExtension.ContainsAPart(values, "bet", StringComparison.OrdinalIgnoreCase); // true
+
+ReadOnlySpan<string?> pieces = ["one", null, "three"];
+string joined = ReadOnlySpanStringExtension.JoinStrings(pieces, ',', includeSpace: true);
+// "one, , three"
 ```
 
-Import the namespace, then call the extension methods directly on the matching value.
+`ContainsAPart()` skips null elements, stops at the first match, and uses exactly the supplied `StringComparison`.
 
-## Common operations
-
-- `ContainsAPart()` - Determines whether any element in the specified span contains the given substring, using the specified string comparison option.
-- `JoinStrings()` - Concatenates the elements of a read-only span of strings, using the specified separator character between each element. Optionally inserts a space after each separator.
+`JoinStrings()` uses a pooled builder. Separators are position-based: a null element contributes no text but still leaves its separator position, as the example shows. An empty span returns `""`; `includeSpace` adds one space after every separator.
