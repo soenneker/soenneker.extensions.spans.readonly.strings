@@ -39,13 +39,13 @@ public static class ReadOnlySpanStringExtension
     /// Concatenates the elements of a read-only span of strings, using the specified separator character between each
     /// element. Optionally inserts a space after each separator.
     /// </summary>
-    /// <remarks>Null elements in the span are ignored and do not contribute separators or spaces to the
-    /// result. No separator or space is added before the first element or after the last element.</remarks>
-    /// <param name="span">A read-only span of strings to join. Null elements are skipped and not included in the result.</param>
+    /// <remarks>Separators are based on element positions. A null element contributes no text, but its position
+    /// is still represented by adjacent, leading, or trailing separators.</remarks>
+    /// <param name="span">A read-only span of strings to join. Null elements contribute no text.</param>
     /// <param name="separator">The character to use as a separator between each string element.</param>
     /// <param name="includeSpace">true to insert a space character after each separator; otherwise, false.</param>
-    /// <returns>A string consisting of the non-null elements of the span separated by the specified character, with optional
-    /// spaces after each separator. Returns an empty string if the span is empty or contains only null elements.</returns>
+    /// <returns>A string consisting of each element's text separated by the specified character, with optional
+    /// spaces after each separator. Returns an empty string if the span is empty.</returns>
     [Pure, MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string JoinStrings(ReadOnlySpan<string?> span, char separator, bool includeSpace)
     {
