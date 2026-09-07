@@ -52,6 +52,12 @@ public static class ReadOnlySpanStringExtension
         if (span.Length == 0)
             return string.Empty;
 
+        if (span.Length == 1)
+            return span[0] ?? string.Empty;
+
+        if (!includeSpace)
+            return string.Join(separator, span);
+
         int initialCapacity = Math.Min(Math.Max(128, span.Length * 4), 4096);
         using var psb = new PooledStringBuilder(initialCapacity);
 
